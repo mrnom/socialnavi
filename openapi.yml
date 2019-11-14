@@ -1,0 +1,551 @@
+info:
+  version: ''
+  title: ''
+openapi: 3.0.2
+paths:
+  /posts/{id}/like/:
+    post:
+      operationId: likePost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - title
+              properties:
+                likes:
+                  type: integer
+                text:
+                  type: string
+                title:
+                  maxLength: 100
+                  type: string
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  likes:
+                    type: integer
+                  edited:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  author:
+                    readOnly: true
+                    type: string
+                  id:
+                    readOnly: true
+                    type: integer
+                  text:
+                    type: string
+                  created:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  title:
+                    maxLength: 100
+                    type: string
+    delete:
+      operationId: likePost
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '204':
+          description: ''
+  /posts/{id}/:
+    patch:
+      operationId: partial_updatePost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                likes:
+                  type: integer
+                text:
+                  type: string
+                title:
+                  maxLength: 100
+                  type: string
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  likes:
+                    type: integer
+                  edited:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  author:
+                    readOnly: true
+                    type: string
+                  id:
+                    readOnly: true
+                    type: integer
+                  text:
+                    type: string
+                  created:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  title:
+                    maxLength: 100
+                    type: string
+    put:
+      operationId: updatePost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - title
+              properties:
+                likes:
+                  type: integer
+                text:
+                  type: string
+                title:
+                  maxLength: 100
+                  type: string
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  likes:
+                    type: integer
+                  edited:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  author:
+                    readOnly: true
+                    type: string
+                  id:
+                    readOnly: true
+                    type: integer
+                  text:
+                    type: string
+                  created:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  title:
+                    maxLength: 100
+                    type: string
+    delete:
+      operationId: destroyPost
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '204':
+          description: ''
+    get:
+      operationId: retrievePost
+      parameters:
+      - required: true
+        description: A unique integer value identifying this post.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  likes:
+                    type: integer
+                  edited:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  author:
+                    readOnly: true
+                    type: string
+                  id:
+                    readOnly: true
+                    type: integer
+                  text:
+                    type: string
+                  created:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  title:
+                    maxLength: 100
+                    type: string
+  /users/{id}/:
+    patch:
+      operationId: partial_updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  format: email
+                  maxLength: 254
+                  type: string
+                password:
+                  writeOnly: true
+                  type: string
+      parameters:
+      - required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - email
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  email:
+                    format: email
+                    maxLength: 254
+                    type: string
+    put:
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  format: email
+                  maxLength: 254
+                  type: string
+                password:
+                  writeOnly: true
+                  type: string
+      parameters:
+      - required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - email
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  email:
+                    format: email
+                    maxLength: 254
+                    type: string
+    delete:
+      operationId: destroyUser
+      parameters:
+      - required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '204':
+          description: ''
+    get:
+      operationId: retrieveUser
+      parameters:
+      - required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+        in: path
+        name: id
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - email
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  email:
+                    format: email
+                    maxLength: 254
+                    type: string
+  /api/token/refresh/:
+    post:
+      operationId: CreateTokenRefresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - refresh
+              properties:
+                refresh:
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - refresh
+                properties:
+                  refresh:
+                    type: string
+  /posts/:
+    post:
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - title
+              properties:
+                likes:
+                  type: integer
+                text:
+                  type: string
+                title:
+                  maxLength: 100
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  likes:
+                    type: integer
+                  edited:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  author:
+                    readOnly: true
+                    type: string
+                  id:
+                    readOnly: true
+                    type: integer
+                  text:
+                    type: string
+                  created:
+                    readOnly: true
+                    format: date-time
+                    type: string
+                  title:
+                    maxLength: 100
+                    type: string
+    get:
+      operationId: listPosts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                items:
+                  required:
+                  - title
+                  properties:
+                    url:
+                      readOnly: true
+                      type: string
+                    likes:
+                      type: integer
+                    edited:
+                      readOnly: true
+                      format: date-time
+                      type: string
+                    author:
+                      readOnly: true
+                      type: string
+                    id:
+                      readOnly: true
+                      type: integer
+                    text:
+                      type: string
+                    created:
+                      readOnly: true
+                      format: date-time
+                      type: string
+                    title:
+                      maxLength: 100
+                      type: string
+                type: array
+  /api/token/:
+    post:
+      operationId: CreateTokenObtainPair
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                password:
+                  writeOnly: true
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - email
+                properties:
+                  email:
+                    type: string
+  /users/:
+    post:
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  format: email
+                  maxLength: 254
+                  type: string
+                password:
+                  writeOnly: true
+                  type: string
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - email
+                properties:
+                  url:
+                    readOnly: true
+                    type: string
+                  email:
+                    format: email
+                    maxLength: 254
+                    type: string
+    get:
+      operationId: listUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                items:
+                  required:
+                  - email
+                  properties:
+                    url:
+                      readOnly: true
+                      type: string
+                    email:
+                      format: email
+                      maxLength: 254
+                      type: string
+                type: array
