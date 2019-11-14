@@ -1,5 +1,4 @@
-from rest_framework import mixins, viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 
 from accounts.models import User
 from accounts.permissions import IsAnonymous, IsCurrentUser
@@ -18,6 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
 
     def perform_create(self, serializer):
+        serializer.verify_email()
         self._hash_password(serializer)
 
     def perform_update(self, serializer):

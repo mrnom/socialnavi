@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
@@ -5,6 +7,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from accounts.models import User
+from accounts.serializers import UserSerializer
 
 TEST_EMAIL = 'test@test.test'
 TEST_PASS = 'pa55word'
@@ -54,7 +57,11 @@ class AccountsTests(APITestCase):
             'password': TEST_PASS
         }
         self.user.delete()
-        response = self.client.post(url, data)
+
+        # Mocking Hunter API call
+        with patch.object(
+                UserSerializer, 'verify_email', return_value=TEST_EMAIL):
+            response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 1)

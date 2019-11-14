@@ -143,3 +143,11 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
 }
+
+HUNTER_API_KEY = ''
+HUNTER_EMAIL_VERIFIER_URL = 'https://api.hunter.io/v2/email-verifier'
+
+try:
+    from socialnavi.local_settings import *
+except ImportError:
+    pass
