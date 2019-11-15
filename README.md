@@ -24,3 +24,21 @@ python manage.py migrate
 ```
 python manage.py test
 ```
+
+### Run server
+```
+python manage.py runserver
+```
+#### OpenAPI specification
+Visit `http://localhost:8000/swagger/` to check out available endpoints.
+
+> Comment out `HUNTER_API_KEY` in `local_settings.py` if you are using 
+fake email.
+
+1. Try out `POST /users/` with email and password to create a new user.
+
+2. `POST /api/token/` with the same credentials to obtain an auth token.
+
+3. Copy `access` token from a response body.
+
+4. Authorize with `Bearer <your_access_token>` to unlock the rest of the endpoints.

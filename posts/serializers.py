@@ -6,7 +6,8 @@ from posts.models import Post
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='posts-detail')
     author = serializers.ReadOnlyField(source='author.id')
-    likes = serializers.IntegerField(source='likes_count', required=False)
+    likes = serializers.IntegerField(source='likes_count', required=False,
+                                     read_only=True)
 
     class Meta:
         model = Post
