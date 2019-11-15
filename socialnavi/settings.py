@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rest_framework',
+    'drf_yasg',
 
     'accounts',
     'posts',
@@ -138,6 +139,17 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'JWT': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization',
+        }
+    },
+    'USE_SESSION_AUTH': False
 }
 
 SIMPLE_JWT = {
