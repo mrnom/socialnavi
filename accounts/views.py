@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.verify_email()
+        serializer.enrich_account()
         self._hash_password(serializer)
 
     def perform_update(self, serializer):

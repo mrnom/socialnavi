@@ -17,6 +17,17 @@ TEST_PASS_2ND = 'pa55wordo'
 
 BROKEN_TOKEN = 'abc'
 
+TEST_ENRICHMENT = {
+    'name': {
+        'givenName': 'Test',
+        'familyName': 'Testo'
+    },
+    'location': 'San Francisco, CA, US',
+    'bio': 'Passionate test runner.',
+    'site': 'http://localhost/',
+    'avatar': 'http://localhost/',
+}
+
 
 class AccountsTests(APITestCase):
 
@@ -58,14 +69,25 @@ class AccountsTests(APITestCase):
         }
         self.user.delete()
 
-        # Mocking Hunter API call
+        # Mocking Hunter and Clearbit Enrichment API calls
         with patch.object(
-                UserSerializer, 'verify_email', return_value=TEST_EMAIL):
+                UserSerializer, 'verify_email', return_value=TEST_EMAIL), \
+                patch('accounts.serializers.clearbit_enrichment',
+                      return_value=TEST_ENRICHMENT):
             response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.first().email, TEST_EMAIL)
+
+        self.assertEqual(User.objects.first().first_name,
+                         TEST_ENRICHMENT['name']['givenName'])
+        self.assertEqual(User.objects.first().last_name,
+                         TEST_ENRICHMENT['name']['familyName'])
+        self.assertEqual(User.objects.first().bio, TEST_ENRICHMENT['bio'])
+        self.assertEqual(User.objects.first().site, TEST_ENRICHMENT['site'])
+        self.assertEqual(User.objects.first().avatar, TEST_ENRICHMENT['avatar'])
+        self.assertEqual(User.objects.first().location, TEST_ENRICHMENT['location'])
 
     def test_accounts_get_user(self):
         url = reverse('users-detail', args=[self.user.id])
