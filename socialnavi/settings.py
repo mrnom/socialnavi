@@ -147,6 +147,9 @@ SIMPLE_JWT = {
 HUNTER_API_KEY = ''
 HUNTER_EMAIL_VERIFIER_URL = 'https://api.hunter.io/v2/email-verifier'
 
+CLEARBIT_API_KEY = ''
+CLEARBIT_ENRICHMENT_URL = 'https://person.clearbit.com/v2/people/find'
+
 try:
     from socialnavi.local_settings import *
 except ImportError:
