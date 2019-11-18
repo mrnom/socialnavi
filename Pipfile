@@ -12,6 +12,7 @@ Django = "*"
 django-extensions = "*"
 requests = "*"
 drf-yasg = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"

@@ -18,6 +18,7 @@ to enrich user account with additional data on register.
 pipenv --three
 pipenv install --dev
 python manage.py migrate
+python manage.py collectstatic
 ```
 
 #### Run tests
