@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.contrib.auth.hashers import make_password
+from django.test.utils import override_settings
 from django.urls import reverse
 
 from rest_framework import status
@@ -61,6 +62,7 @@ class AccountsTests(APITestCase):
         self.assertIn('access', response.data)
         self.assertIn('refresh', response.data)
 
+    @override_settings(CLEARBIT_API_KEY=' ')
     def test_accounts_create_user(self):
         url = reverse('users-list')
         data = {
@@ -78,16 +80,15 @@ class AccountsTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(User.objects.first().email, TEST_EMAIL)
 
-        self.assertEqual(User.objects.first().first_name,
-                         TEST_ENRICHMENT['name']['givenName'])
-        self.assertEqual(User.objects.first().last_name,
-                         TEST_ENRICHMENT['name']['familyName'])
-        self.assertEqual(User.objects.first().bio, TEST_ENRICHMENT['bio'])
-        self.assertEqual(User.objects.first().site, TEST_ENRICHMENT['site'])
-        self.assertEqual(User.objects.first().avatar, TEST_ENRICHMENT['avatar'])
-        self.assertEqual(User.objects.first().location, TEST_ENRICHMENT['location'])
+        user = User.objects.first()
+        self.assertEqual(user.email, TEST_EMAIL)
+        self.assertEqual(user.first_name, TEST_ENRICHMENT['name']['givenName'])
+        self.assertEqual(user.last_name, TEST_ENRICHMENT['name']['familyName'])
+        self.assertEqual(user.bio, TEST_ENRICHMENT['bio'])
+        self.assertEqual(user.site, TEST_ENRICHMENT['site'])
+        self.assertEqual(user.avatar, TEST_ENRICHMENT['avatar'])
+        self.assertEqual(user.location, TEST_ENRICHMENT['location'])
 
     def test_accounts_get_user(self):
         url = reverse('users-detail', args=[self.user.id])
